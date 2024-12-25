@@ -609,21 +609,12 @@ func TestHasChildren(t *testing.T) {
 	for _, c := range cases {
 		ctx := context.Background()
 		if c.expectedBool {
-			fmt.Println("Adding a children")
 			ctx = templ.WithChildren(ctx, templ.NopComponent)
-		} else {
-			fmt.Println("Not adding a children")
 		}
-		actualBool, children := templ.HasChildren(ctx)
+		actualBool := templ.HasChildren(ctx)
 
 		if actualBool != c.expectedBool {
 			t.Errorf("expected %t got %t", c.expectedBool, actualBool)
 		}
-
-		if children == nil {
-			// testing if it is nil save to prevent any panics
-			t.Errorf("expected everything but nil got nil")
-		}
-
 	}
 }

@@ -82,12 +82,9 @@ func GetChildren(ctx context.Context) Component {
 }
 
 // Check wether Component has children defined or not
-func HasChildren(ctx context.Context) (bool, Component) {
+func HasChildren(ctx context.Context) bool {
 	_, v := getContext(ctx)
-	if v.children == nil {
-		return false, NopComponent
-	}
-	return true, *v.children
+	return v.children != nil
 }
 
 // EscapeString escapes HTML text within templates.
