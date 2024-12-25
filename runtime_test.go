@@ -593,3 +593,34 @@ func TestNonce(t *testing.T) {
 		}
 	})
 }
+
+func TestHasChildren(t *testing.T) {
+	cases := []struct {
+		input        []string
+		expectedBool bool
+	}{
+		{
+			input:        []string{},
+			expectedBool: false,
+		},
+		{
+			input:        []string{"Foo"},
+			expectedBool: true,
+		},
+	}
+
+	for _, c := range cases {
+		ctx := context.WithValue(context.Background(), "children", c.input)
+		actualBool, children := templ.HasChildren(ctx)
+
+		if actualBool != c.expectedBool {
+			t.Errorf("expected %t got %t", c.expectedBool, actualBool)
+		}
+
+		if children == nil {
+			// testing if it is nil save to prevent any panics
+			t.Errorf("expected everything but nil got nil")
+		}
+
+	}
+}

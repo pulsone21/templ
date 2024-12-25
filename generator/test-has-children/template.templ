@@ -1,0 +1,20 @@
+package testhaschildren
+
+templ list() {
+	if ok, children := templ.HasChildren(ctx); ok {
+		<ul>
+			@children
+		</ul>
+	} else {
+		<p>{ "No children" }</p>
+	}
+}
+
+templ render(names []string) {
+	@list() {
+		for _, n := range names {
+			<p>{ n }</p>
+		}
+	}
+	@list()
+}
