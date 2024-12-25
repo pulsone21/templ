@@ -181,7 +181,6 @@ func main() {
   <p>Bar</p>
   <p>Deez</p>
 </ul>
-
 <p>No user in list</p>
 ```
 

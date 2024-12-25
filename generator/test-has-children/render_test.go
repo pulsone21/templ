@@ -1,6 +1,7 @@
 package testhaschildren
 
 import (
+	"fmt"
 	"testing"
 
 	_ "embed"
@@ -12,6 +13,7 @@ import (
 var expected string
 
 func Test(t *testing.T) {
+	fmt.Println(expected)
 	render := render([]string{"Foo", "Bar", "Deez"})
 
 	diff, err := htmldiff.Diff(render, expected)

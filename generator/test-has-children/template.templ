@@ -1,9 +1,11 @@
 package testhaschildren
 
+import "context"
+
 templ list() {
-	if ok, children := templ.HasChildren(ctx); ok {
+	if ok, _ := templ.HasChildren(context.Background()); ok {
 		<ul>
-			@children
+			{ children... }
 		</ul>
 	} else {
 		<p>{ "No children" }</p>
@@ -11,10 +13,12 @@ templ list() {
 }
 
 templ render(names []string) {
-	@list() {
-		for _, n := range names {
-			<p>{ n }</p>
+	<div>
+		@list() {
+			<p>{ "Children" }</p>
 		}
-	}
-	@list()
+	</div>
+	<div>
+		@list()
+	</div>
 }

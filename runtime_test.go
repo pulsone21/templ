@@ -596,21 +596,24 @@ func TestNonce(t *testing.T) {
 
 func TestHasChildren(t *testing.T) {
 	cases := []struct {
-		input        []string
 		expectedBool bool
 	}{
 		{
-			input:        []string{},
 			expectedBool: false,
 		},
 		{
-			input:        []string{"Foo"},
 			expectedBool: true,
 		},
 	}
 
 	for _, c := range cases {
-		ctx := context.WithValue(context.Background(), "children", c.input)
+		ctx := context.Background()
+		if c.expectedBool {
+			fmt.Println("Adding a children")
+			ctx = templ.WithChildren(ctx, templ.NopComponent)
+		} else {
+			fmt.Println("Not adding a children")
+		}
 		actualBool, children := templ.HasChildren(ctx)
 
 		if actualBool != c.expectedBool {
