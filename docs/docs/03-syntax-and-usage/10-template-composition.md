@@ -23,15 +23,9 @@ templ right() {
 ```
 
 ```html title="Output"
-<div>
- Left
-</div>
-<div>
- Middle
-</div>
-<div>
- Right
-</div>
+<div>Left</div>
+<div>Middle</div>
+<div>Right</div>
 ```
 
 ## Children
@@ -58,9 +52,7 @@ The use of the `{ children... }` expression in the child component.
 
 ```html title="output"
 <div id="wrapper">
- <div>
-  Inserted from the top
- </div>
+  <div>Inserted from the top</div>
 </div>
 ```
 
@@ -96,9 +88,7 @@ func main() {
 
 ```html title="output"
 <div id="wrapper">
- <div>
-  Inserted from Go code
- </div>
+  <div>Inserted from Go code</div>
 </div>
 ```
 
@@ -138,6 +128,62 @@ func main() {
 :::note
 The `templ.ClearChildren` function is used to stop passing the children down the tree.
 :::
+
+### Check if Childrens where defined
+
+Sometimes its usefull to check if a childrens are defined to an component.
+You Can achive this with the `templ.HasChildren` function.
+
+```templ
+// You have a list Component, which is provides some styling etc.
+templ ListComponent(placeholder string) {
+if ok, children := templ.HasChildren(ctx); ok {
+	<ul>
+	@children
+	</ul>
+}else {
+	<p>{placeholder}</p>
+}
+}
+```
+
+To use it, you do the following
+
+```templ
+
+templ UserList(Username []string) {
+@List("No user in list"){
+	for _, u := range Username {
+	 <p>{u}</p>
+	}
+ }
+}
+```
+
+```go title="main.go"
+package main
+
+import (
+	"context"
+	"os"
+)
+
+func main() {
+	usr := []string{"Foo","Bar","Deez"}
+	UserList(usr).Render(context.Background(), os.Stdout)
+	UserList([]string{}).Render(context.Background(), os.Stdout)
+}
+```
+
+```html title="output"
+<ul>
+  <p>Foo</p>
+  <p>Bar</p>
+  <p>Deez</p>
+</ul>
+
+<p>No user in list</p>
+```
 
 ## Components as parameters
 
@@ -180,10 +226,10 @@ func main() {
 
 ```html title="output"
 <div id="heading">
-	<h1>Heading</h1>
+  <h1>Heading</h1>
 </div>
 <div id="contents">
-	<p>Dynamic contents</p>
+  <p>Dynamic contents</p>
 </div>
 ```
 
@@ -229,10 +275,10 @@ func main() {
 
 ```html title="output"
 <div id="heading">
-	<h1>Heading</h1>
+  <h1>Heading</h1>
 </div>
 <div id="contents">
-	<p>Dynamic contents</p>
+  <p>Dynamic contents</p>
 </div>
 ```
 
