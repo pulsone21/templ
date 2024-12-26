@@ -13,10 +13,9 @@ templ list() {
 templ render(names []string) {
 	<div>
 		@list() {
-			<p>{ "Has Children" } </p>
-			//		for _, n := range names {
-			//			<p>{ n }</p>
-			//	}
+			for _, n := range names {
+				<li>{ n }</li>
+			}
 		}
 	</div>
 	<div>

@@ -444,12 +444,12 @@ func (g *generator) writeTemplate(nodeIdx int, t parser.HTMLTemplate) error {
 		if _, err = g.w.WriteIndent(indentLevel, "}\n"); err != nil {
 			return err
 		}
-		// ctx = templ.ClearChildren(children)
-		if _, err = g.w.WriteIndent(indentLevel, "ctx = templ.ClearChildren(ctx)\n"); err != nil {
-			return err
-		}
 		// Nodes.
 		if err = g.writeNodes(indentLevel, stripWhitespace(t.Children), nil); err != nil {
+			return err
+		}
+		// ctx = templ.ClearChildren(children)
+		if _, err = g.w.WriteIndent(indentLevel, "ctx = templ.ClearChildren(ctx)\n"); err != nil {
 			return err
 		}
 		// return templ_7745c5c3_Err
